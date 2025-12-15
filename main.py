@@ -111,7 +111,9 @@ def extract_metadata():
     pillow_exif = extract_pillow_exif(path)
     exifread_exif = extract_exifread(path)
     piexif_exif = extract_piexif(path)
-    gps_data = extract_gps_from_piexif(path)
+    gps_data = {}
+    if pillow_exif:
+        gps_data = extract_gps_from_piexif(path)
 
     def print_dict(title, data):
         output.insert(tk.END, f"===== {title} =====\n")
