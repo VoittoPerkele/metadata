@@ -15,7 +15,7 @@ def convert_gps_to_decimal(gps_data):
         m = gps_data[1][0] / gps_data[1][1]  # минуты
         s = gps_data[2][0] / gps_data[2][1]  # секунды
 
-        return d + m + (s / 3600)
+        return d + (m / 60) + (s / 3600)
     except Exception:
         return None
 
@@ -101,7 +101,7 @@ def choose_file():
 # Извлечение всех типов метаданных
 def extract_metadata():
     path = file_path_var.get().strip()
-    if not path and not os.path.exists(path):
+    if not path or not os.path.exists(path):
         messagebox.showerror("Ошибка", "Файл не найден")
         return
     output.delete(1.0, tk.END)
