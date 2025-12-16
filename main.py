@@ -6,6 +6,9 @@ from PIL.ExifTags import TAGS, GPSTAGS
 import exifread
 import piexif
 
+import cProfile
+import pstats
+
 
 # Функции обработки GPS
 
@@ -154,6 +157,15 @@ tk.Button(top_frame, text="Извлечь", command=extract_metadata).pack(side=
 output = scrolledtext.ScrolledText(root, wrap=tk.WORD, font=("Consolas", 10))
 output.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-root.mainloop()  # запуск GUI
+root.mainloop()  # запуск GUIif __name__ == "__main__":
+    profiler = cProfile.Profile()
+    profiler.enable()
+
+    root.mainloop()  # запуск GUI
+
+    profiler.disable()
+    stats = pstats.Stats(profiler)
+    stats.sort_stats("cumulative").print_stats(20)
+
 
 
